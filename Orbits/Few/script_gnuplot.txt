@@ -1,0 +1,24 @@
+set palette rgbformula -7,2,-7
+# set palette grey
+set view map
+unset key
+unset colorbox
+#set tic scale 0,0.001
+f(x)=x-0.5
+do for [i=9:10] {
+	#set title sprintf("Comprimento de Orbitas para N=%d",i)
+	#set autoscale xfix
+	#set autoscale yfix
+	set xrange [-0.5:f(i)]
+	set yrange [-0.5:f(i)]
+	set xtic 1
+	set ytic 1
+	set mxtics 2
+ 	set mytics 2
+	set grid front mxtics mytics lw 1.0 lt -1 lc rgb 'black'
+	plot  sprintf("orbit %d.txt",i) matrix using 1:2:3 with image,  sprintf("orbit %d.txt",i) matrix using 1:2:($3 == 0 ? "" : sprintf("%g",$3) ) with labels
+	set term pdf
+	set output sprintf("orbit cor %d.pdf",i)
+	replot
+	set term x11
+}

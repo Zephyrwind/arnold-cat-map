@@ -1,0 +1,12 @@
+set palette rgbformula -7,2,-7
+set view map
+unset key
+unset colorbox
+set xrange [-0.5:4.5]
+set yrange [-0.5:4.5]
+set xtic 1
+set ytic 1
+set mxtics 2
+set mytics 2
+set grid front mxtics mytics lw 1.0 lt -1 lc rgb 'black'
+plot  "orbit 5.txt" using 1:2:3 with image,  "orbit 5.txt" matrix using 1:2:($3 == 0 ? "" : sprintf("%g",$3) ) with labels
